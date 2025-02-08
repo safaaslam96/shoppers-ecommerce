@@ -1,17 +1,24 @@
-interface SuccessContainerProps {
-  sessionId: string
+import SuccessContainer from "@/components/SuccessContainer";
+import { redirect } from "next/navigation";
+
+interface Props {
+  searchParams: {
+    sessionId: string | null;
+  };
 }
 
-export default function SuccessContainer({ sessionId }: SuccessContainerProps) {
+const SuccessPage = ({ searchParams }: Props) => {
+  const id = searchParams?.sessionId;
+
+  if (!id) {
+    redirect("/");
+  }
+
   return (
     <div>
-      <h1>Success!</h1>
-      <p>Your session ID is: {sessionId}</p>
-      {/* Add more content as needed */}
+      <SuccessContainer id={id} />
     </div>
-  )
-}
+  );
+};
 
-
-
-
+export default SuccessPage;
